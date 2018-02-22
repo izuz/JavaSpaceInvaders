@@ -11,6 +11,10 @@ package codigo;
  * @author Gonzalo Izuzquiza
  */
 public class VentanaJuego extends javax.swing.JFrame {
+    
+    static int ANCHOPANTALLA = 600;
+    static int ALTOPANTALLA = 400;
+    
 
     /**
      * Creates new form VentanaJuego
