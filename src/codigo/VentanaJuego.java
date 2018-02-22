@@ -21,6 +21,7 @@ public class VentanaJuego extends javax.swing.JFrame {
     static int ALTOPANTALLA = 400;
     
     BufferedImage buffer = null;
+    int contador = 0;
 
     // bucle de animacion del juego
     // en este caso, es un hilo de ejercicios nuevos que se encarga
@@ -60,6 +61,9 @@ public class VentanaJuego extends javax.swing.JFrame {
         
         
         //////////////////////////////////////////////////////////////////////
+        
+        contador++;
+        System.out.println(contador);
         
         //dibujo de golpe el buufer sobre el jpanel1
         g2 = (Graphics2D) jPanel1.getGraphics();
