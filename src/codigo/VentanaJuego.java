@@ -6,6 +6,10 @@
  * - 
  */
 package codigo;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import javax.swing.Timer;
 
 /**
  * @author Gonzalo Izuzquiza
@@ -15,7 +19,19 @@ public class VentanaJuego extends javax.swing.JFrame {
     static int ANCHOPANTALLA = 600;
     static int ALTOPANTALLA = 400;
     
+    BufferedImage buffer = null;
 
+    // bucle de animacion del juego
+    // en este caso, es un hilo de ejercicios nuevos que se encarga
+    // de refrescar el contenido de la pantalla
+    
+    Timer temporizador = new Timer(10, new ActionListener () {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+    });
+    
     /**
      * Creates new form VentanaJuego
      */
