@@ -49,12 +49,12 @@ public class Nave {
     // metodo para mover la nave
     public void mueve (){
         if (pulsadoIzquierda && x > 0){
-            x--;
+            x-=3;
             
         }
         
         if (pulsadoDerecha && x < anchoPantalla - imagen.getWidth(null)){
-            x++;
+            x+=3;
             
         }
     }
