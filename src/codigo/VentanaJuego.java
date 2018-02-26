@@ -25,6 +25,8 @@ public class VentanaJuego extends javax.swing.JFrame {
     int contador = 0;
     Nave miNave = new Nave(ANCHOPANTALLA);
     Disparo miDisparo = new Disparo(ALTOPANTALLA);
+    Marciano miMarciano = new Marciano (ANCHOPANTALLA);
+    
     
 
     // bucle de animacion del juego
@@ -50,6 +52,8 @@ public class VentanaJuego extends javax.swing.JFrame {
         miNave.x = ANCHOPANTALLA/2 - miNave.imagen.getWidth(this)/2;
         miNave.y = ALTOPANTALLA - miNave.imagen.getHeight(this) - 10;
         
+        miMarciano.x = 10;
+        miMarciano.y = 10;
         
         
         //inicio el temporizador
@@ -72,14 +76,27 @@ public class VentanaJuego extends javax.swing.JFrame {
         
         //////////////////////////////////////////////////////////////////////
         
-       // contador++;
+       contador++;
        miDisparo.mueve();
        g2.drawImage(miDisparo.imagen, miDisparo.getX(), miDisparo.getY(), null);
        //pinto la nave
         miNave.mueve();
         g2.drawImage(miNave.imagen, miNave.x, miNave.y, null);
         
+        miMarciano.mueve();
+        if (contador < 50){
+        // dibujo al marciano
+        g2.drawImage(miMarciano.imagen, miMarciano.x, miMarciano.y, null);
+        }
+        else if (contador < 100){
+        g2.drawImage(miMarciano.imagen2, miMarciano.x, miMarciano.y, null);
+        }
+        else contador = 0;
         
+        if (miMarciano.x == ANCHOPANTALLA - miMarciano.imagen.getWidth(null) || miMarciano.x == 0){
+            miMarciano.direccion = !miMarciano.direccion;
+            miMarciano.y+= miMarciano.imagen.getHeight(null);
+        }
         //dibujo de golpe el buufer sobre el jpanel1
         g2 = (Graphics2D) jPanel1.getGraphics();
         g2.drawImage(buffer, 0, 0, null);
