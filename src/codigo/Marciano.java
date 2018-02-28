@@ -16,7 +16,7 @@ public class Marciano {
     public int x = 0;
     public int y = 0;
     private int anchoPantalla;
-    public boolean direccion = false; // si es false es que se mueve a la izquierda
+
     
         public Marciano(int _anchoPantalla){
         try {
@@ -28,7 +28,7 @@ public class Marciano {
         }
         anchoPantalla = _anchoPantalla;
     }
-        public void mueve (){
+        public void mueve (boolean direccion){
             if (direccion){
                 if (x < anchoPantalla - imagen.getWidth(null) ){
                        x++;
