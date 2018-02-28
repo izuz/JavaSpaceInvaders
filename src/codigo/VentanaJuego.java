@@ -145,7 +145,10 @@ public class VentanaJuego extends javax.swing.JFrame {
         //////////////////////////////////////////////////////////////////////
         
        contador++;
-       miDisparo.mueve();
+       
+       if(miDisparo.isDisparo()){
+            miDisparo.mueve();
+        }
        g2.drawImage(miDisparo.imagen, miDisparo.getX(), miDisparo.getY(), null);
        //pinto la nave
         miNave.mueve();
