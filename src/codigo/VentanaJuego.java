@@ -10,6 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import javax.swing.Timer;
 
@@ -18,8 +19,8 @@ import javax.swing.Timer;
  */
 public class VentanaJuego extends javax.swing.JFrame {
     
-    static int ANCHOPANTALLA = 600;
-    static int ALTOPANTALLA = 400;
+    static int ANCHOPANTALLA = 800;
+    static int ALTOPANTALLA = 600;
     // cuantos marcianos van a salir por pantalla
     int filasMarcianos = 5;
     int columnasMarcianos = 10;
@@ -74,8 +75,8 @@ public class VentanaJuego extends javax.swing.JFrame {
     
     private void pintaMarcianos(Graphics2D _g2){
         for (int i=0; i<filasMarcianos;i++){
-            
             for (int j=0; j<columnasMarcianos; j++){
+                if(listaMarciano[i][j].vida){
                 listaMarciano[i][j].mueve(direccionMarcianos);
                 
                 if (contador < 50){
@@ -98,6 +99,33 @@ public class VentanaJuego extends javax.swing.JFrame {
                        }    
                     }
                }
+          }
+        }
+    }
+    
+    private void chequeaColision(){
+        
+        Rectangle2D.Double rectanguloMarciano = new Rectangle2D.Double();
+        Rectangle2D.Double rectanguloDisparo = new Rectangle2D.Double();
+        rectanguloDisparo.setFrame(miDisparo.getX(), miDisparo.getY(), 
+                                   miDisparo.imagen.getWidth(null), miDisparo.imagen.getHeight(null));
+        
+        for (int i=0; i<filasMarcianos;i++){   
+            for (int j=0; j<columnasMarcianos; j++){
+                if (listaMarciano[i][j].vida){
+                rectanguloMarciano.setFrame(listaMarciano[i][j].x, listaMarciano[i][j].y, 
+                                            listaMarciano[i][j].imagen.getWidth(null), 
+                                            listaMarciano[i][j].imagen.getHeight(null));
+                
+                if (rectanguloDisparo.intersects(rectanguloMarciano)){
+                    // si esto es true es que los dos rectanuglos han chocado en algun punto
+                    listaMarciano[i][j].vida=false;
+                   // recolocamos al marciano y el disparo por debajo de la pantalla
+                    miDisparo.setY(2000);
+                    miDisparo.setDisparado(false);
+                        }
+                    }
+                }
           }
     }
     
@@ -125,24 +153,7 @@ public class VentanaJuego extends javax.swing.JFrame {
         
         pintaMarcianos(g2);
         
-//        miMarciano.mueve();
-//        
-//        
-//        if (contador < 50){
-//        // dibujo al marciano
-//        g2.drawImage(miMarciano.imagen, miMarciano.x, miMarciano.y, null);
-//        }
-//        
-//        else if (contador < 100){
-//        g2.drawImage(miMarciano.imagen2, miMarciano.x, miMarciano.y, null);
-//        }
-//        
-//        else contador = 0;
-//        
-//        if (miMarciano.x == ANCHOPANTALLA - miMarciano.imagen.getWidth(null) || miMarciano.x == 0){
-//            miMarciano.direccion = !miMarciano.direccion;
-//            miMarciano.y+= miMarciano.imagen.getHeight(null);
-//        }
+        chequeaColision();
         
         //dibujo de golpe el buufer sobre el jpanel1
         g2 = (Graphics2D) jPanel1.getGraphics();
