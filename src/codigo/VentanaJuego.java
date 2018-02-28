@@ -12,6 +12,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
 /**
@@ -36,6 +38,9 @@ public class VentanaJuego extends javax.swing.JFrame {
     // direccion en la que se mueve el grupo de marcianos
     boolean direccionMarcianos = false;
     
+    BufferedImage plantilla = null;
+    BufferedImage[] imagenes = new BufferedImage[30];
+    
     // bucle de animacion del juego
     // en este caso, es un hilo de ejercicios nuevos que se encarga
     // de refrescar el contenido de la pantalla
@@ -53,6 +58,18 @@ public class VentanaJuego extends javax.swing.JFrame {
      */
     public VentanaJuego() {
         initComponents();
+        try{
+            plantilla = ImageIO.read(getClass().getResource("/imagenes/invaders2.png"));
+        }
+        catch (IOException e){}
+        
+        for (int i=0; i<6; i++){
+            for (int j=0; j<5; j++){
+                imagenes[i*5 + j] = plantilla.getSubimage(j*32, i*32, 32, 32);
+            }
+        }
+        
+        
         setSize(ANCHOPANTALLA +6, ALTOPANTALLA + 29);
         buffer = (BufferedImage)jPanel1.createImage(ANCHOPANTALLA, ALTOPANTALLA);
         buffer.createGraphics();
@@ -63,6 +80,8 @@ public class VentanaJuego extends javax.swing.JFrame {
         for (int i=0; i<filasMarcianos;i++){
             for (int j=0; j<columnasMarcianos; j++){
                 listaMarciano[i][j] = new Marciano(ANCHOPANTALLA);
+                listaMarciano[i][j].imagen = imagenes[2];
+                listaMarciano[i][j].imagen2 = imagenes[3];            
                 listaMarciano[i][j].x = j*(15 + listaMarciano[i][j].imagen.getWidth(null));
                 listaMarciano[i][j].y = i*(10 +listaMarciano[i][j].imagen.getHeight(null));
             }
@@ -98,8 +117,8 @@ public class VentanaJuego extends javax.swing.JFrame {
                            }
                        }    
                     }
-               }
-          }
+                 }
+            }
         }
     }
     
