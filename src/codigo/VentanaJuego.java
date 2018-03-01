@@ -7,6 +7,7 @@
 package codigo;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -39,7 +40,7 @@ public class VentanaJuego extends javax.swing.JFrame {
     boolean direccionMarcianos = false;
     
     BufferedImage plantilla = null;
-    BufferedImage[] imagenes = new BufferedImage[30];
+    Image[] imagenes = new Image[30];
     
     // bucle de animacion del juego
     // en este caso, es un hilo de ejercicios nuevos que se encarga
@@ -63,9 +64,10 @@ public class VentanaJuego extends javax.swing.JFrame {
         }
         catch (IOException e){}
         
-        for (int i=0; i<6; i++){
-            for (int j=0; j<5; j++){
-                imagenes[i*5 + j] = plantilla.getSubimage(j*32, i*32, 32, 32);
+        for (int i=0; i<5; i++){
+            for (int j=0; j<4; j++){
+                imagenes[i*4 + j] = plantilla.getSubimage(j*64, i*64, 64, 64);
+                imagenes[i*4 + j] = imagenes[i*4 + j].getScaledInstance(32, 32, Image.SCALE_SMOOTH);
             }
         }
         
@@ -80,8 +82,8 @@ public class VentanaJuego extends javax.swing.JFrame {
         for (int i=0; i<filasMarcianos;i++){
             for (int j=0; j<columnasMarcianos; j++){
                 listaMarciano[i][j] = new Marciano(ANCHOPANTALLA);
-                listaMarciano[i][j].imagen = imagenes[2];
-                listaMarciano[i][j].imagen2 = imagenes[3];            
+                listaMarciano[i][j].imagen = imagenes[4];
+                listaMarciano[i][j].imagen2 = imagenes[5];            
                 listaMarciano[i][j].x = j*(15 + listaMarciano[i][j].imagen.getWidth(null));
                 listaMarciano[i][j].y = i*(10 +listaMarciano[i][j].imagen.getHeight(null));
             }
