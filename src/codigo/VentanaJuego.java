@@ -64,26 +64,35 @@ public class VentanaJuego extends javax.swing.JFrame {
         }
         catch (IOException e){}
         
+        // guardo cada sprote en un Image individual. De esta forma es más facil dibujarlos dependiendo de lo que se necesite       
         for (int i=0; i<5; i++){
             for (int j=0; j<4; j++){
+                // corto el trozo de 64x64 que corresponde a ese marciano
                 imagenes[i*4 + j] = plantilla.getSubimage(j*64, i*64, 64, 64);
+                // cambio a 32x32 la imagen
                 imagenes[i*4 + j] = imagenes[i*4 + j].getScaledInstance(32, 32, Image.SCALE_SMOOTH);
             }
         }
+        
+        imagenes[20] = plantilla.getSubimage(0, 320, 66, 32);
+        imagenes[21] = plantilla.getSubimage(66, 320, 64, 32);
+
         
         
         setSize(ANCHOPANTALLA +6, ALTOPANTALLA + 29);
         buffer = (BufferedImage)jPanel1.createImage(ANCHOPANTALLA, ALTOPANTALLA);
         buffer.createGraphics();
+        miNave.imagen = imagenes[21];
         miNave.x = ANCHOPANTALLA/2 - miNave.imagen.getWidth(this)/2;
-        miNave.y = ALTOPANTALLA - miNave.imagen.getHeight(this) - 10;
+        miNave.y = ALTOPANTALLA - miNave.imagen.getHeight(this) - 40;
+        
         
         // creamos el array de marcianos
         for (int i=0; i<filasMarcianos;i++){
             for (int j=0; j<columnasMarcianos; j++){
                 listaMarciano[i][j] = new Marciano(ANCHOPANTALLA);
-                listaMarciano[i][j].imagen = imagenes[4];
-                listaMarciano[i][j].imagen2 = imagenes[5];            
+                listaMarciano[i][j].imagen = imagenes[2*i];
+                listaMarciano[i][j].imagen2 = imagenes[2*i+1];            
                 listaMarciano[i][j].x = j*(15 + listaMarciano[i][j].imagen.getWidth(null));
                 listaMarciano[i][j].y = i*(10 +listaMarciano[i][j].imagen.getHeight(null));
             }
